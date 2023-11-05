@@ -1,0 +1,2 @@
+export const GOOGLE_ANDROID_ID="351919190833-1jvt5s28porvfnq8qtbd2f9ec6tfft2g.apps.googleusercontent.com"
+export const GOOGLE_IOS_ID="548272860578-bovqrlecdj95kcju0sics2hs3m1835dt.apps.googleusercontent.com"

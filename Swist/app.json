@@ -1,0 +1,77 @@
+{
+  "expo": {
+    "name": "svist",
+    "slug": "svist",
+    "version": "1.1.5",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "com.svist",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#FE7B01"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.scooters.ios",
+      "buildNumber": "0",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleMapsApiKey": "AIzaSyAf6lzuq0ZNHSE-6IyzzIFZ9pqJUyqY98I",
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "Svist uses the camera to let user take a photo of a scooter",
+        "NSLocationWhenInUseUsageDescription": "Svist uses your location for displaying nearest scooters on the map.",
+        "NSLocationAlwaysUsageDescription": "Turning on location services allows us to show you nearby scooters",
+        "NSLocationUsageDescription": "Turning on location services allows us to show you nearby scooters"
+      },
+      "entitlements": {
+        "com.apple.developer.applesignin": [
+          "Default"
+        ]
+      }
+    },
+    "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCmCklCRbHgPYwZVYnnisi9giNbV6qj71Q"
+        }
+      },
+      "package": "com.svist",
+      "googleServicesFile": "../android/android/app/google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "93ecb302-f0c8-4f79-95fb-b1fef2b58e44"
+      }
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "./react-native-maps-plugin",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,277 @@
+Index: src/screens/RideScreen.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/RideScreen.js b/src/screens/RideScreen.js
+--- a/src/screens/RideScreen.js	(revision b277550ce50bd830cb117a0a3d0463fd9f657a8e)
++++ b/src/screens/RideScreen.js	(date 1680278400394)
+@@ -1,5 +1,5 @@
+-import React, { useEffect, useMemo, useRef, useState } from "react";
+-import { AppState, BackHandler, StyleSheet, View } from "react-native";
++import React, { useEffect, useState } from "react";
++import { AppState, StyleSheet, View } from "react-native";
+ import { AnimatedRegion } from "react-native-maps";
+ import DrawerMenuButton from "../components/DrawerMenuButton";
+ import StartRide from "../components/StartRide";
+@@ -7,7 +7,6 @@
+   continueTrip,
+   getCurrentTrip,
+   getPolygons,
+-  getScooters,
+   pauseTrip,
+   startReservedTrip,
+   startTrip,
+@@ -15,7 +14,7 @@
+ } from "../api/scooterApi";
+ import { useAuth } from "../provider/AuthProvider";
+ import LoadingModal from "../components/LoadingModal";
+-import { StackActions, useNavigation } from "@react-navigation/native";
++import {useNavigation } from "@react-navigation/native";
+ import {
+   BLACK_ZONE,
+   NORMAL_ZONE,
+@@ -25,14 +24,11 @@
+ } from "../../assets/polygonColors";
+ import SocketIOClient from "socket.io-client";
+ import TrackerMap from "../components/TrackerMap/TrackerMap";
+-import AsyncStorage from "@react-native-async-storage/async-storage";
+ import moment from "moment";
+ import PushErrorModal from "../components/PushErrorModal/PushErrorModal";
+ import GpsLostModal from "../components/GpsLostModal";
+ import ParkingZoneInfoModal from "../components/ParkingZoneInfoModal";
+ import { BASE_URL } from "../api/apiKeys";
+-
+-import { getCostSettings, getProfileInfo } from "../api/authApi";
+ import {useDispatch, useSelector} from "react-redux";
+ import { setSelectScooter,
+   setReservation,
+Index: src/helpers/getUserCards.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/helpers/getUserCards.js b/src/helpers/getUserCards.js
+new file mode 100644
+--- /dev/null	(date 1680268548869)
++++ b/src/helpers/getUserCards.js	(date 1680268548869)
+@@ -0,0 +1,17 @@
++import AsyncStorage from "@react-native-async-storage/async-storage";
++import {getCards} from "../api/authApi";
++import {setUserCards} from "../redux/paymentReducer";
++
++const getUserCards=(dispatch)=>{
++    AsyncStorage.getItem('auth').then(res => {
++        const token = res;
++        getCards(token).then((res) => {
++            const array=res?.data?.data.sort((a, b) => a.is_main < b.is_main ? 1 : -1)
++            dispatch(setUserCards(array))
++        })
++        console.log('Token retrieved successfully', token);
++    }).catch(e => {
++        console.error('Error retrieving token', e);
++    });
++}
++export default getUserCards
+\ No newline at end of file
+Index: src/screens/AddNewCardScreen.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/AddNewCardScreen.js b/src/screens/AddNewCardScreen.js
+--- a/src/screens/AddNewCardScreen.js	(revision b277550ce50bd830cb117a0a3d0463fd9f657a8e)
++++ b/src/screens/AddNewCardScreen.js	(date 1680279022514)
+@@ -14,6 +14,7 @@
+ import PaymentModal from "../components/PaymentModal/PaymentModal";
+ import {GT, GT_BOLD} from "../constants/fonts";
+ import {setUserCards} from "../redux/paymentReducer";
++import {useDispatch} from "react-redux";
+ 
+ const AddNewCardScreen = () => {
+   const dispatch = useDispatch();
+@@ -44,7 +45,6 @@
+         setUrl(res?.data?.data?.url)
+         setClose(true)
+         getCards(authToken).then((card) => {
+-
+           setCardsLength(card?.data?.data?.length)
+           console.log(res?.data?.data)
+           setCardId(res?.data?.data)
+@@ -61,7 +61,6 @@
+   };
+   const checkCard=()=>{
+     if (tryCount < 10) {
+-
+       getCards(authToken).then((res) => {
+         console.log(res?.data?.data?.length, cardsLength)
+         const array=res?.data?.data.sort((a, b) => a.is_main < b.is_main ? 1 : -1)
+Index: src/screens/payment/CardsList.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/payment/CardsList.jsx b/src/screens/payment/CardsList.jsx
+--- a/src/screens/payment/CardsList.jsx	(revision b277550ce50bd830cb117a0a3d0463fd9f657a8e)
++++ b/src/screens/payment/CardsList.jsx	(date 1680204438234)
+@@ -65,11 +65,7 @@
+   // DOUBLE CLICK & HIDE ON FIRST ELEMENT
+ 
+   const handleDoublePress = (item,index,ref) => {
+-    console.log(item.y)
+-    if(item?.y === 0){
+-      ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
+-      setRows(shuffle(index, item))
+-    }
++    setSelectCard(item)
+     const time = new Date().getTime();
+     const delta = time - lastPress;
+     if (delta < DOUBLE_PRESS_DELAY) {
+@@ -84,6 +80,12 @@
+     setLastPress(time)
+     ;
+   };
++  const handleHideList = (item,index,ref) =>{
++    if(index === 0){
++      ref?.current?.scrollTo({ x: 0, y: 0, animated: true });
++      setRows(shuffle(index, item))
++    }
++  }
+   // END DOUBLE CLICK
+ 
+   return (
+@@ -106,6 +108,7 @@
+                         onPress={() => {
+             setSelect(item)
+             handleDoublePress(item,index, ref)
++            handleHideList(item,index, ref)
+             // setRows(shuffle(index, item))
+ 
+           }}
+Index: src/provider/AuthProvider.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/provider/AuthProvider.js b/src/provider/AuthProvider.js
+--- a/src/provider/AuthProvider.js	(revision b277550ce50bd830cb117a0a3d0463fd9f657a8e)
++++ b/src/provider/AuthProvider.js	(date 1680264504326)
+@@ -118,14 +118,14 @@
+ 
+   }, [])
+ 
+-  useEffect(() => {
+-    if (authToken) {
+-      getCostSettings(authToken).then(res => {
+-        setCostSettings(res?.data)
+-      })
+-      getUserCards(authToken)
+-    }
+-  }, [authToken])
++  // useEffect(() => {
++  //   if (authToken) {
++  //     getCostSettings(authToken).then(res => {
++  //       setCostSettings(res?.data)
++  //     })
++  //     getUserCards(authToken)
++  //   }
++  // }, [authToken])
+ 
+   const exit=()=>{
+     setName('')
+Index: src/screens/MainScreen.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/MainScreen.js b/src/screens/MainScreen.js
+--- a/src/screens/MainScreen.js	(revision b277550ce50bd830cb117a0a3d0463fd9f657a8e)
++++ b/src/screens/MainScreen.js	(date 1680274875266)
+@@ -76,6 +76,7 @@
+ 
+ import checkConnection from "../helpers/checkConnection";
+ import getLocation from "../helpers/getLocation";
++import getUserCards from "../helpers/getUserCards";
+ 
+ const MainScreen = () => {
+ 
+@@ -103,7 +104,6 @@
+     i18n,
+     isAdded,
+     setIsAdded,
+-    getUserCards,
+     locale,
+     setIsNewUser,
+   } = useAuth();
+@@ -168,6 +168,7 @@
+ 
+   useEffect( () => {
+     getLocation(dispatch);
++    getUserCards(dispatch);
+   }, []);
+ 
+   useEffect(() => {
+@@ -292,7 +293,7 @@
+   }, [navigation.isFocused(), AppState.currentState]);
+ 
+   useEffect(() => {
+-    // console.log("2")
++
+     if (navigation.isFocused()) {
+       Promise.all([
+         getCostSettings(authToken),
+Index: src/screens/payment/PaymentScreen.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/screens/payment/PaymentScreen.js b/src/screens/payment/PaymentScreen.js
+--- a/src/screens/payment/PaymentScreen.js	(revision b277550ce50bd830cb117a0a3d0463fd9f657a8e)
++++ b/src/screens/payment/PaymentScreen.js	(date 1680295488881)
+@@ -54,7 +54,6 @@
+   const [deleteCardOpen, setDeleteCardOpen] = useState(false)
+   const [errorOpen, setErrorOpen] = useState(false)
+   const [error, setError] = useState('')
+-
+   const [changeColor, setChangeColor] = useState(false)
+   const navigation = useNavigation()
+   const [rows, setRows] = useState(cards);
+@@ -63,7 +62,7 @@
+   const [paymentUrl, setPaymentUrl] = useState('')
+   const {authToken, i18n, locale} = useAuth()
+   const {
+-    debt
++    debt , userCards
+   } = useSelector((state) => state.payment);
+   const getCardImg = useMemo(() => (index) => {
+     if (index === 0) {
+@@ -98,7 +97,6 @@
+   }, [changeColor])
+   const getInfo = () => {
+     getCards(authToken).then((res) => {
+-
+       const sortArray = res?.data?.data.sort((a, b) => a.is_main < b.is_main ? 1 : -1)
+       // console.log(sortArray)
+       setCards(sortArray?.map((item, index) => {
+@@ -121,10 +119,11 @@
+ 
+   }
+   useEffect(() => {
+-    setLoading(true)
+     getInfo()
++  }, [userCards])
++
++  useEffect(() => {
+     setLoading(false)
+-
+   }, [openPaymentModal])
+   useEffect(() => {
+     if (navigation.isFocused()) {
+@@ -142,7 +141,6 @@
+   }, [navigation.isFocused()])
+ 
+   const shuffle = (indexItem, item) => {
+-    console.log('shhhhhhhhhh', indexItem, item.id)
+     const oldItem = cards[0]
+     let array = rows
+     let arrayOld = array[0]

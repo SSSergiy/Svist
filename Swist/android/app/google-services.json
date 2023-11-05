@@ -1,0 +1,150 @@
+{
+  "project_info": {
+    "project_number": "351919190833",
+    "project_id": "scooters2",
+    "storage_bucket": "scooters2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351919190833:android:9ba51067bb23c62da33610",
+        "android_client_info": {
+          "package_name": "com.quazom.scooters2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351919190833-ftdh8k3v1gbojtip5adf50044tirskk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quazom.scooters2",
+            "certificate_hash": "e4a465c67131e476da347ce8ae9e7bf6695072ea"
+          }
+        },
+        {
+          "client_id": "351919190833-1jvt5s28porvfnq8qtbd2f9ec6tfft2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB66FKebITRnAU1FptyPirRYoC4bPOeoek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351919190833-1jvt5s28porvfnq8qtbd2f9ec6tfft2g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351919190833-anolgcjurtt1ngm6kf8aiehk3g69utq5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.quazom.scooters2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351919190833:android:67d7236f5a0e1392a33610",
+        "android_client_info": {
+          "package_name": "com.svist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351919190833-eqp54h1lo7bivf5ds07fki1v8nbesof9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.svist",
+            "certificate_hash": "9217cc9681c1e90c3a329b110f075ae57ef3f7e5"
+          }
+        },
+        {
+          "client_id": "351919190833-mbp5lhmm81erog3m334ghde95tndnoce.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.svist",
+            "certificate_hash": "197a8d01cde6b2079686df53aaa406cdb2b6b0b3"
+          }
+        },
+        {
+          "client_id": "351919190833-uuk0d5m4af9aic6cq0bgtqotob5rseg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.svist",
+            "certificate_hash": "fca18654baf26c3f30e06b39a4c91d7bde68dd9f"
+          }
+        },
+        {
+          "client_id": "351919190833-1jvt5s28porvfnq8qtbd2f9ec6tfft2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB66FKebITRnAU1FptyPirRYoC4bPOeoek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351919190833-1jvt5s28porvfnq8qtbd2f9ec6tfft2g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351919190833-anolgcjurtt1ngm6kf8aiehk3g69utq5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.quazom.scooters2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351919190833:android:03e789ac7d1548b7a33610",
+        "android_client_info": {
+          "package_name": "com.svist.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351919190833-1jvt5s28porvfnq8qtbd2f9ec6tfft2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB66FKebITRnAU1FptyPirRYoC4bPOeoek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351919190833-1jvt5s28porvfnq8qtbd2f9ec6tfft2g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351919190833-anolgcjurtt1ngm6kf8aiehk3g69utq5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.quazom.scooters2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

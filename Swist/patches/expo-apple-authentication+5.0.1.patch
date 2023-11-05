@@ -1,0 +1,64 @@
+diff --git a/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.d.ts b/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.d.ts
+index aea2c66..475e542 100644
+--- a/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.d.ts
++++ b/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.d.ts
+@@ -1,3 +1,3 @@
+-import { ConfigPlugin } from 'expo/config-plugins';
++import { ConfigPlugin } from '@expo/config-plugins';
+ declare const _default: ConfigPlugin<void>;
+ export default _default;
+diff --git a/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.js b/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.js
+index b4e1669..7cbf5b0 100644
+--- a/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.js
++++ b/node_modules/expo-apple-authentication/plugin/build/withAppleAuth.js
+@@ -1,6 +1,6 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+-const config_plugins_1 = require("expo/config-plugins");
++const config_plugins_1 = require("@expo/config-plugins");
+ const withAppleAuthIOS_1 = require("./withAppleAuthIOS");
+ const pkg = require('expo-apple-authentication/package.json');
+ const withAppleAuth = (config) => {
+diff --git a/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.d.ts b/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.d.ts
+index 5d8877a..5c9b41f 100644
+--- a/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.d.ts
++++ b/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.d.ts
+@@ -1,4 +1,4 @@
+-import { ConfigPlugin } from 'expo/config-plugins';
++import { ConfigPlugin } from '@expo/config-plugins';
+ /**
+  * Enable including `strings` files from external packages.
+  * Required for making the Apple Auth button support localizations.
+diff --git a/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.js b/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.js
+index 3789c7f..d4a36b3 100644
+--- a/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.js
++++ b/node_modules/expo-apple-authentication/plugin/build/withAppleAuthIOS.js
+@@ -1,7 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.withAppleAuthIOS = exports.withIOSMixedLocales = void 0;
+-const config_plugins_1 = require("expo/config-plugins");
++const config_plugins_1 = require("@expo/config-plugins");
+ /**
+  * Enable including `strings` files from external packages.
+  * Required for making the Apple Auth button support localizations.
+diff --git a/node_modules/expo-apple-authentication/plugin/src/withAppleAuth.ts b/node_modules/expo-apple-authentication/plugin/src/withAppleAuth.ts
+index 7c090a4..16fa45e 100644
+--- a/node_modules/expo-apple-authentication/plugin/src/withAppleAuth.ts
++++ b/node_modules/expo-apple-authentication/plugin/src/withAppleAuth.ts
+@@ -1,4 +1,4 @@
+-import { ConfigPlugin, createRunOncePlugin } from 'expo/config-plugins';
++import { ConfigPlugin, createRunOncePlugin } from '@expo/config-plugins';
+ 
+ import { withAppleAuthIOS } from './withAppleAuthIOS';
+ 
+diff --git a/node_modules/expo-apple-authentication/plugin/src/withAppleAuthIOS.ts b/node_modules/expo-apple-authentication/plugin/src/withAppleAuthIOS.ts
+index 6ce054f..fc43b73 100644
+--- a/node_modules/expo-apple-authentication/plugin/src/withAppleAuthIOS.ts
++++ b/node_modules/expo-apple-authentication/plugin/src/withAppleAuthIOS.ts
+@@ -1,4 +1,4 @@
+-import { ConfigPlugin, withEntitlementsPlist, withInfoPlist } from 'expo/config-plugins';
++import { ConfigPlugin, withEntitlementsPlist, withInfoPlist } from '@expo/config-plugins';
+ 
+ /**
+  * Enable including `strings` files from external packages.
